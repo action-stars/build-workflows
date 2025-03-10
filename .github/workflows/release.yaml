@@ -1,0 +1,72 @@
+name: Publish Release
+
+on:
+  workflow_call:
+    inputs:
+      changelog_path:
+        description: Path to the CHANGELOG file; this needs to follow the Keep a Changelog pattern.
+        type: string
+        required: false
+        default: ./CHANGELOG.md
+      version:
+        description: The version to be released.
+        type: string
+        required: false
+        default: ${{ github.ref_name }}
+      make_latest:
+        description: Whether to make the release the latest release.
+        type: boolean
+        required: false
+        default: true
+      artifacts:
+        description: Comma separated list of artifact path to be uploaded to the release; this supports globs.
+        type: string
+        required: false
+        default: ""
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 1
+
+      - name: Get changelog entry
+        id: changelog
+        uses: mindsers/changelog-reader-action@32aa5b4c155d76c94e4ec883a223c947b2f02656 # v2.2.3
+        with:
+          path: ${{ inputs.changelog_path }}
+          version: ${{ inputs.version }}
+
+      - name: Release notes
+        id: release_notes
+        run: |
+          set -euo pipefail
+
+          changes='${{ steps.changelog.outputs.changes }}'
+
+          changelog="$(echo "${changes}" | sed -r 's/\[(@[^]]+)\]\([^)]+\)/\1/g')"
+
+          {
+            echo "changelog<<EOF"
+            echo "${changelog}"
+            echo "EOF"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Create release
+        uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174 # v1.16.0
+        with:
+          token: ${{ github.token }}
+          makeLatest: ${{ inputs.make_latest }}
+          allowUpdates: true
+          body: ${{ steps.release_notes.outputs.changelog }}
+          artifacts: ${{ inputs.artifacts }}
