@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.2.0] - 2025-03-12
+
 ### Fixed
 
 - Fix the image media type created by the _Build OCI Image_ workflow not being OCI. ([#2](https://github.com/action-stars/helm-workflows/pull/2)) _@stevehipwell_
@@ -29,5 +31,6 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.1.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.2.0...HEAD
+[v0.2.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.2.0
 [v0.1.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.1.0
