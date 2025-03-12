@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+[v0.1.0] - 2025-03-12
+
 ### Added
 
 - Add initial version of the _Build OCI Image_ workflow. ([#1](https://github.com/action-stars/helm-workflows/pull/1)) _@stevehipwell_
@@ -22,4 +24,5 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.1.0...HEAD
+[v0.1.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.1.0
