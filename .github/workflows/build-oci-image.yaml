@@ -252,7 +252,7 @@ jobs:
           outputs: type=image,name-canonical=true,oci-mediatypes=true,push-by-digest=true,push=${{ inputs.push_image && 'true' || 'false' }}
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@bd77c077858b8d561b7a36cbe48ef4cc642ca39d # v2.2.2
+        uses: actions/attest-build-provenance@c074443f1aee8d4aeeae555aebba3282517141b2 # v2.2.3
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -462,7 +462,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@bd77c077858b8d561b7a36cbe48ef4cc642ca39d # v2.2.2
+        uses: actions/attest-build-provenance@c074443f1aee8d4aeeae555aebba3282517141b2 # v2.2.3
         with:
           github-token: ${{ github.token }}
           subject-name: ${{ needs.validate.outputs.image }}
