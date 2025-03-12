@@ -205,11 +205,9 @@ jobs:
 
           platform="${{ matrix.platform }}"
           platform_pair="${platform//\//-}"
-
           artifact_key="${{ needs.validate.outputs.artifact_key }}-${platform_pair}"
 
           {
-            echo "platform_pair=${platform_pair}"
             echo "artifact_key=${artifact_key}"
           } >> "${GITHUB_OUTPUT}"
 
@@ -251,7 +249,7 @@ jobs:
           sbom: false
           cache-from: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }}-${{ matrix.platform }}
           cache-to: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }}-${{ matrix.platform }},mode=max
-          outputs: type=image,push-by-digest=true,name-canonical=true,push=${{ inputs.push_image && 'true' || 'false' }}
+          outputs: type=image,name-canonical=true,oci-mediatypes=true,push-by-digest=true,push=${{ inputs.push_image && 'true' || 'false' }}
 
       - name: Attest OCI image
         uses: actions/attest-build-provenance@bd77c077858b8d561b7a36cbe48ef4cc642ca39d # v2.2.2
@@ -359,10 +357,12 @@ jobs:
         run: |
           set -euo pipefail
 
+          platform="${{ matrix.platform }}"
+
           digest="${{ steps.build.outputs.digest }}"
           digests_path="${{ runner.temp }}/digests"
           mkdir -p "${digests_path}"
-          touch "${digests_path}/${digest#sha256:}"
+          printf '%s\n' "${platform}" > "${digests_path}/${digest#sha256:}"
 
           echo "digests_path=${digests_path}" >> "${GITHUB_OUTPUT}"
 
@@ -411,9 +411,12 @@ jobs:
       - name: Generate OCI image metadata
         id: metadata
         uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
+        env:
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: index
         with:
-          images: |
-            ${{ needs.validate.outputs.image }}
+          images: ${{ needs.validate.outputs.image }}
+          labels: ${{ inputs.labels }}
+          annotations: ${{ inputs.annotations }}
 
       - name: Setup Crane
         uses: imjasonh/setup-crane@31b88efe9de28ae0ffa220711af4b60be9435f6e # v0.4
@@ -437,16 +440,16 @@ jobs:
               default_tag="${tag}"
             fi
 
-            args+=("--tag" "${image}:${tag}")
+            args+=( "--tag" "${image}:${tag}" )
           done
 
           while read -r annotation; do
-            args+=("--annotation" "${annotation}")
-          done <<<"$(jq -r '.annotations | .[] | .[9:] | "index:\(.)" | split("=") | "\(.[0])=\"\(.[1])\""' <<<"${metadata_json}")"
+            args+=( "--annotation" "${annotation}" )
+          done <<<"$(jq -r '.annotations.[]' <<<"${metadata_json}")"
 
           for file in $(find "${{ steps.digests.outputs.download-path }}" -maxdepth 1 -type f -print0 | xargs -0); do
             name="$(basename "${file}")"
-            args+=("${image}@sha256:${name}")
+            args+=( "${image}@sha256:${name}" )
             platform_digests+="sha256:${name},"
           done
 
