@@ -1,0 +1,494 @@
+name: Build OCI Image
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        description: Name of the image to build.
+        type: string
+        required: true
+      repository:
+        description: The GHCR repository to build the image in.
+        type: string
+        required: true
+      dockerfile:
+        description: Path to the Dockerfile to build.
+        type: string
+        required: true
+      context:
+        description: Path to the context to build the image in.
+        type: string
+        required: false
+        default: .
+      platforms:
+        description: Platforms to build the image for; as comma separated values.
+        type: string
+        required: false
+        default: linux/amd64,linux/arm64
+      artifacts_pattern:
+        description: Pattern to match artifacts that should be downloaded to be used for image building.
+        type: string
+        required: false
+        default: ''
+      labels:
+        description: Labels to apply to the image; as multi-line values in the format `<key>=<value>`.
+        type: string
+        required: false
+        default: ''
+      annotations:
+        description: Annotations to apply to the manifest image; as multi-line values in the format `<key>=<value>`.
+        type: string
+        required: false
+        default: ''
+      tags:
+        description: Tags to apply to the image; as comma separated values. If no tags are provided then a tag will be created from the Git short SHA.
+        type: string
+        required: false
+        default: ''
+      scan_image:
+        description: Whether to scan the image with Grype.
+        type: boolean
+        required: false
+        default: true
+      push_sbom:
+        description: Whether to push the SBOM to the GitHub dependency submission.
+        type: boolean
+        required: false
+        default: true
+      push_sarif:
+        description: Whether to push the SARIF files for GitHub Security.
+        type: boolean
+        required: false
+        default: true
+      push_image:
+        description: Whether to push the image to the registry.
+        type: boolean
+        required: false
+        default: true
+
+    outputs:
+      image:
+        description: Full name of the manifest image created.
+        value: ${{ inputs.push_image && jobs.validate.outputs.image || '' }}
+      tags:
+        description: Tags applied to the manifest image created.
+        value: ${{ inputs.push_image && jobs.validate.outputs.tags || '' }}
+      digest:
+        description: Digest of the manifest image created.
+        value: ${{ inputs.push_image && jobs.manifest.outputs.digest || '' }}
+      platform_digests:
+        description: Digests of the images created for each platform.
+        value: ${{ inputs.push_image && jobs.manifest.outputs.platform_digests || '' }}
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    outputs:
+      image: ${{ steps.setup.outputs.image }}
+      platforms: ${{ steps.setup.outputs.platforms }}
+      source_date_epoch: ${{ steps.setup.outputs.source_date_epoch }}
+      tags: ${{ steps.setup.outputs.tags }}
+      artifact_key: ${{ steps.setup.outputs.artifact_key }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 1
+
+      - name: Setup
+        id: setup
+        run: |
+          set -euo pipefail
+
+          image="ghcr.io/${{ inputs.repository }}/${{ inputs.name }}"
+
+          platforms_in="${{ inputs.platforms }}"
+          platforms="$(jq -Rrc 'split(",")' <<<"${platforms_in}")"
+
+          source_date_epoch="$(git log -1 --pretty=%ct)"
+
+          tags="${{ inputs.tags }}"
+          if [[ -z "${tags}" ]]; then
+            tags="sha-$(git rev-parse --short HEAD)"
+          fi
+
+          artifact_key="${{ inputs.name }}"
+
+          {
+            echo "image=${image}"
+            echo "platforms=${platforms}"
+            echo "source_date_epoch=${source_date_epoch}"
+            echo "tags=${tags}"
+            echo "artifact_key=${artifact_key}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Install Hadolint
+        uses: action-stars/install-tool-from-github-release@ece2623611b240002e0dd73a0d685505733122f6 # v0.2.4
+        with:
+          github_token: ${{ github.token }}
+          owner: hadolint
+          repository: hadolint
+          arch_amd64: x86_64
+          os_linux: Linux
+          extract: false
+          filename_format: "{name}-{os}-{arch}"
+          check_command: hadolint --version
+          version: latest
+
+      - name: Run Hadolint
+        id: hadolint
+        run: |
+          set -euo pipefail
+
+          sarif_path="${{ runner.temp }}/hadolint-${{ steps.setup.outputs.artifact_key }}.sarif"
+
+          hadolint --no-fail --format sarif ${{ inputs.dockerfile }} > "${sarif_path}"
+
+          echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload Hadolint SARIF report
+        uses: github/codeql-action/upload-sarif@6bb031afdd8eb862ea3fc1848194185e076637e5 # v3.28.11
+        if: inputs.push_sarif
+        with:
+          category: hadolint-${{ steps.setup.outputs.artifact_key }}
+          sarif_file: ${{ steps.hadolint.outputs.path }}
+
+      - name: Upload Hadolint artifacts
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        with:
+          name: hadolint-${{ steps.setup.outputs.artifact_key }}
+          path: ${{ steps.hadolint.outputs.path }}
+          if-no-files-found: error
+          retention-days: 28
+
+  build:
+    name: Build Image
+    needs: validate
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: ${{fromJson(needs.validate.outputs.platforms)}}
+    runs-on: ${{ matrix.platform == 'linux/arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    permissions:
+      attestations: write
+      contents: write
+      id-token: write
+      packages: write
+      security-events: write
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 1
+
+      - name: Download artifacts
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+        if: ${{ inputs.artifacts_pattern != '' }}
+        with:
+          path: workflow-artifacts
+          pattern: ${{ inputs.artifacts_pattern }}
+          merge-multiple: true
+
+      - name: Setup
+        id: setup
+        run: |
+          set -euo pipefail
+
+          platform="${{ matrix.platform }}"
+          platform_pair="${platform//\//-}"
+
+          artifact_key="${{ needs.validate.outputs.artifact_key }}-${platform_pair}"
+
+          {
+            echo "platform_pair=${platform_pair}"
+            echo "artifact_key=${artifact_key}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
+        if: inputs.push_image
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+
+      - name: Generate OCI image metadata
+        id: metadata
+        uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
+        with:
+          images: ${{ needs.validate.outputs.image }}
+          labels: ${{ inputs.labels }}
+          annotations: ${{ inputs.annotations }}
+
+      - name: Build OCI image
+        id: build
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
+        env:
+          SOURCE_DATE_EPOCH: ${{ needs.validate.outputs.source_date_epoch }}
+        with:
+          file: ${{ inputs.dockerfile }}
+          context: ${{ inputs.context }}
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          annotations: ${{ steps.metadata.outputs.annotations }}
+          tags: ${{ needs.validate.outputs.image }}
+          provenance: false
+          sbom: false
+          cache-from: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }}-${{ matrix.platform }}
+          cache-to: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }}-${{ matrix.platform }},mode=max
+          outputs: type=image,push-by-digest=true,name-canonical=true,push=${{ inputs.push_image && 'true' || 'false' }}
+
+      - name: Attest OCI image
+        uses: actions/attest-build-provenance@bd77c077858b8d561b7a36cbe48ef4cc642ca39d # v2.2.2
+        if: inputs.push_image
+        with:
+          github-token: ${{ github.token }}
+          subject-name: ${{ needs.validate.outputs.image }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true
+          show-summary: true
+
+      - name: Install Syft
+        uses: action-stars/install-tool-from-github-release@ece2623611b240002e0dd73a0d685505733122f6 # v0.2.4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: anchore
+          repository: syft
+          check_command: syft --version
+          version: latest
+
+      - name: Generate SBOM
+        id: syft
+        run: |
+          set -euo pipefail
+
+          platform="${{ matrix.platform }}"
+          image="${{ needs.validate.outputs.image }}"
+          digest="${{ steps.build.outputs.digest }}"
+
+          sbom_path="${{ runner.temp }}/syft-sbom-${{ steps.setup.outputs.artifact_key }}.spdx.json"
+
+          syft --source-name "${{ github.repository }}" --source-version "${digest}" --platform "${platform}" -o "spdx-json=${sbom_path}" "${image}@${digest}"
+
+          echo "path=${sbom_path}" >> "${GITHUB_OUTPUT}"
+
+      - name: Attest SBOM
+        uses: actions/attest-sbom@115c3be05ff3974bcbd596578934b3f9ce39bf68 # v2.2.0
+        if: inputs.push_image
+        with:
+          github-token: ${{ github.token }}
+          subject-name: ${{ needs.validate.outputs.image }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          sbom-path: ${{ steps.syft.outputs.path }}
+          push-to-registry: true
+          show-summary: true
+
+      - name: Upload SBOMs to Dependency Graph
+        uses: advanced-security/spdx-dependency-submission-action@5530bab9ee4bbe66420ce8280624036c77f89746 # v0.1.1
+        if: inputs.push_sbom
+        with:
+          token: ${{ github.token }}
+          filePath: "."
+          filePattern: "*.spdx.json"
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        with:
+          name: sbom-${{ steps.setup.outputs.artifact_key }}
+          retention-days: 28
+          if-no-files-found: error
+          path: ${{ steps.syft.outputs.path }}
+
+      - name: Install Grype
+        uses: action-stars/install-tool-from-github-release@ece2623611b240002e0dd73a0d685505733122f6 # v0.2.4
+        if: inputs.scan_image
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: anchore
+          repository: grype
+          check_command: grype --version
+          version: latest
+
+      - name: Scan SBOM with Grype
+        id: grype
+        if: inputs.scan_image
+        run: |
+          set -euo pipefail
+
+          platform="${{ matrix.platform }}"
+
+          sarif_path="${{ runner.temp }}/grype-scan-${{ steps.setup.outputs.artifact_key }}.sarif"
+
+          grype --platform "${platform}" -o "sarif=${sarif_path}" "sbom:${{ steps.syft.outputs.path }}"
+
+          echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload Grype SARIF report
+        uses: github/codeql-action/upload-sarif@6bb031afdd8eb862ea3fc1848194185e076637e5 # v3.28.11
+        if: inputs.scan_image && inputs.push_sarif
+        with:
+          category: grype-${{ steps.setup.outputs.artifact_key }}
+          sarif_file: ${{ steps.grype.outputs.path }}
+
+      - name: Upload Grype artifacts
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        if: inputs.scan_image
+        with:
+          name: grype-${{ steps.setup.outputs.artifact_key }}
+          path: ${{ steps.grype.outputs.path }}
+          if-no-files-found: error
+          retention-days: 28
+
+      - name: Export digest
+        id: digest
+        run: |
+          set -euo pipefail
+
+          digest="${{ steps.build.outputs.digest }}"
+          digests_path="${{ runner.temp }}/digests"
+          mkdir -p "${digests_path}"
+          touch "${digests_path}/${digest#sha256:}"
+
+          echo "digests_path=${digests_path}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload digest
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        with:
+          name: digests-${{ steps.setup.outputs.artifact_key }}
+          path: ${{ steps.digest.outputs.digests_path }}/*
+          if-no-files-found: error
+          retention-days: 1
+
+  manifest:
+    name: Build Manifest
+    if: inputs.push_image
+    needs: [validate, build]
+    runs-on: ubuntu-latest
+    permissions:
+      attestations: write
+      id-token: write
+      packages: write
+    defaults:
+      run:
+        shell: bash
+    outputs:
+      digest: ${{ steps.manifest.outputs.digest }}
+      platform_digests: ${{ steps.manifest.outputs.platform_digests }}
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+        id: digests
+        with:
+          path: ${{ runner.temp }}/digests
+          pattern: digests-${{ needs.validate.outputs.artifact_key }}-*
+          merge-multiple: true
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+
+      - name: Generate OCI image metadata
+        id: metadata
+        uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
+        with:
+          images: |
+            ${{ needs.validate.outputs.image }}
+
+      - name: Setup Crane
+        uses: imjasonh/setup-crane@31b88efe9de28ae0ffa220711af4b60be9435f6e # v0.4
+
+      - name: Build OCI manifest image
+        id: manifest
+        run: |
+          set -euo pipefail
+
+          image="${{ needs.validate.outputs.image }}"
+          tags="${{ needs.validate.outputs.tags }}"
+          metadata_json='${{ steps.metadata.outputs.json }}'
+
+          args=()
+          default_tag=""
+          platform_digests=""
+
+          # shellcheck disable=SC2016
+          for tag in ${tags//,/ }; do
+            if [[ -z "${default_tag}" ]]; then
+              default_tag="${tag}"
+            fi
+
+            args+=("--tag" "${image}:${tag}")
+          done
+
+          while read -r annotation; do
+            args+=("--annotation" "${annotation}")
+          done <<<"$(jq -r '.annotations | .[] | .[9:] | "index:\(.)" | split("=") | "\(.[0])=\"\(.[1])\""' <<<"${metadata_json}")"
+
+          for file in $(find "${{ steps.digests.outputs.download-path }}" -maxdepth 1 -type f -print0 | xargs -0); do
+            name="$(basename "${file}")"
+            args+=("${image}@sha256:${name}")
+            platform_digests+="sha256:${name},"
+          done
+
+          docker buildx imagetools create "${args[@]}"
+          digest="$(crane digest --platform=all "${image}:${default_tag}")"
+
+          {
+            echo "digest=${digest}"
+            echo "platform_digests=${platform_digests%,}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Attest OCI image
+        uses: actions/attest-build-provenance@bd77c077858b8d561b7a36cbe48ef4cc642ca39d # v2.2.2
+        with:
+          github-token: ${{ github.token }}
+          subject-name: ${{ needs.validate.outputs.image }}
+          subject-digest: ${{ steps.manifest.outputs.digest }}
+          push-to-registry: true
+          show-summary: true
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a # v3.8.1
+
+      - name: Sign image
+        run: |
+          set -euo pipefail
+
+          image="${{ needs.validate.outputs.image }}"
+          digest="${{ steps.manifest.outputs.digest }}"
+
+          cosign sign --yes=true --recursive "${image}@${digest}"
+
+      - name: Summary
+        run: |
+          set -euo pipefail
+
+          image="${{ needs.validate.outputs.image }}"
+          tags="${{ needs.validate.outputs.tags }}"
+
+          printf '### Image Built :rocket:\n\n' >> "${GITHUB_STEP_SUMMARY}"
+
+          # shellcheck disable=SC2016
+          for tag in ${tags//,/ }; do
+            printf -- '- `%s`\n' "${image}:${tag}" >> "${GITHUB_STEP_SUMMARY}"
+          done
