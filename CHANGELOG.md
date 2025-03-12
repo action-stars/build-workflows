@@ -15,18 +15,22 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Updated _actions/attest-build-provenance_ from `2.2.2` to [`2.2.3`](https://github.com/actions/attest-build-provenance/releases/tag/v2.2.2). ([#4](https://github.com/action-stars/build-workflows/pull/4)) _@dependabot_
+
 ## [v0.2.0] - 2025-03-12
 
 ### Fixed
 
-- Fix the image media type created by the _Build OCI Image_ workflow not being OCI. ([#2](https://github.com/action-stars/helm-workflows/pull/2)) _@stevehipwell_
-- Fix missing annotation for the OCI image index created by the _Build OCI Image_ workflow. ([#2](https://github.com/action-stars/helm-workflows/pull/2)) _@stevehipwell_
+- Fix the image media type created by the _Build OCI Image_ workflow not being OCI. ([#5](https://github.com/action-stars/helm-workflows/pull/5)) _@stevehipwell_
+- Fix missing annotation for the OCI image index created by the _Build OCI Image_ workflow. ([#5](https://github.com/action-stars/helm-workflows/pull/5)) _@stevehipwell_
 
 ## [v0.1.0] - 2025-03-12
 
 ### Added
 
-- Add initial version of the _Build OCI Image_ workflow. ([#1](https://github.com/action-stars/helm-workflows/pull/1)) _@stevehipwell_
+- Add initial version of the _Build OCI Image_ workflow. ([#2](https://github.com/action-stars/helm-workflows/pull/2)) _@stevehipwell_
 
 <!--
 RELEASES
