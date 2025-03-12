@@ -19,6 +19,10 @@
 
 - Updated _actions/attest-build-provenance_ from `2.2.2` to [`2.2.3`](https://github.com/actions/attest-build-provenance/releases/tag/v2.2.2). ([#4](https://github.com/action-stars/build-workflows/pull/4)) _@dependabot_
 
+### Fixed
+
+- Fix missing permission for validate job. ([#6](https://github.com/action-stars/helm-workflows/pull/6)) _@stevehipwell_
+
 ## [v0.2.0] - 2025-03-12
 
 ### Fixed
