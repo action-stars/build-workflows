@@ -15,6 +15,11 @@
 
 ## [UNRELEASED]
 
+### Fixed
+
+- Fix the image media type created by the _Build OCI Image_ workflow not being OCI. ([#2](https://github.com/action-stars/helm-workflows/pull/2)) _@stevehipwell_
+- Fix missing annotation for the OCI image index created by the _Build OCI Image_ workflow. ([#2](https://github.com/action-stars/helm-workflows/pull/2)) _@stevehipwell_
+
 ## [v0.1.0] - 2025-03-12
 
 ### Added
