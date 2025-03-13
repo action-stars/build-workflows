@@ -26,7 +26,7 @@ on:
         required: false
         default: linux/amd64,linux/arm64
       artifacts_pattern:
-        description: Pattern to match artifacts that should be downloaded to be used for image building.
+        description: Pattern to match artifacts that should be downloaded to be used for image building. The path where these artifacts are downloaded to is available in the `WORKFLOW_ARTIFACTS` build argument.
         type: string
         required: false
         default: ''
@@ -192,10 +192,11 @@ jobs:
           fetch-depth: 1
 
       - name: Download artifacts
+        id: workflow_artifacts
         uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         if: ${{ inputs.artifacts_pattern != '' }}
         with:
-          path: workflow-artifacts
+          path: ${{ format('{0}/workflow-artifacts', runner.temp) }}
           pattern: ${{ inputs.artifacts_pattern }}
           merge-multiple: true
 
@@ -222,6 +223,7 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
+        if: matrix.platform != 'linux/amd64' && matrix.platform != 'linux/arm64'
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
@@ -242,6 +244,8 @@ jobs:
         with:
           file: ${{ inputs.dockerfile }}
           context: ${{ inputs.context }}
+          build-args: |
+            WORKFLOW_ARTIFACTS=${{ steps.workflow_artifacts.outputs.download-path }}
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.metadata.outputs.labels }}
           annotations: ${{ steps.metadata.outputs.annotations }}

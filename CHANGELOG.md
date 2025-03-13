@@ -15,6 +15,14 @@
 
 ## [UNRELEASED]
 
+### Added
+
+- Add `WORKFLOW_ARTIFACTS` build argument to support accessing the artifacts passed to the workflow. ([#7](https://github.com/action-stars/helm-workflows/pull/7)) _@stevehipwell_
+
+### Changed
+
+- Only setup QEMU if the platform doesn't match the runner architecture. ([#7](https://github.com/action-stars/helm-workflows/pull/7)) _@stevehipwell_
+
 ## [v0.3.0] - 2025-03-12
 
 ### Changed
