@@ -154,14 +154,14 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Hadolint SARIF report
-        uses: github/codeql-action/upload-sarif@6bb031afdd8eb862ea3fc1848194185e076637e5 # v3.28.11
+        uses: github/codeql-action/upload-sarif@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # v3.28.13
         if: inputs.push_sarif
         with:
           category: hadolint-${{ steps.setup.outputs.artifact_key }}
           sarif_file: ${{ steps.hadolint.outputs.path }}
 
       - name: Upload Hadolint artifacts
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: hadolint-${{ steps.setup.outputs.artifact_key }}
           path: ${{ steps.hadolint.outputs.path }}
@@ -193,7 +193,7 @@ jobs:
 
       - name: Download artifacts
         id: workflow_artifacts
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
         if: ${{ inputs.artifacts_pattern != '' }}
         with:
           path: ${{ format('{0}/workflow-artifacts', runner.temp) }}
@@ -310,7 +310,7 @@ jobs:
           filePattern: "*.spdx.json"
 
       - name: Upload SBOM artifacts
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: sbom-${{ steps.setup.outputs.artifact_key }}
           retention-days: 28
@@ -342,14 +342,14 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Grype SARIF report
-        uses: github/codeql-action/upload-sarif@6bb031afdd8eb862ea3fc1848194185e076637e5 # v3.28.11
+        uses: github/codeql-action/upload-sarif@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # v3.28.13
         if: inputs.scan_image && inputs.push_sarif
         with:
           category: grype-${{ steps.setup.outputs.artifact_key }}
           sarif_file: ${{ steps.grype.outputs.path }}
 
       - name: Upload Grype artifacts
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: inputs.scan_image
         with:
           name: grype-${{ steps.setup.outputs.artifact_key }}
@@ -372,7 +372,7 @@ jobs:
           echo "digests_path=${digests_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload digest
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: digests-${{ steps.setup.outputs.artifact_key }}
           path: ${{ steps.digest.outputs.digests_path }}/*
@@ -396,7 +396,7 @@ jobs:
       platform_digests: ${{ steps.manifest.outputs.platform_digests }}
     steps:
       - name: Download digests
-        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
         id: digests
         with:
           path: ${{ runner.temp }}/digests
