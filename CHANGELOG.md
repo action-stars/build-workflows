@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.4.0] - 2025-03-27
+
 ### Added
 
 - Add `WORKFLOW_ARTIFACTS` build argument to support accessing the artifacts passed to the workflow. ([#7](https://github.com/action-stars/helm-workflows/pull/7)) _@stevehipwell_
@@ -23,6 +25,9 @@
 
 - Only setup QEMU if the platform doesn't match the runner architecture. ([#7](https://github.com/action-stars/helm-workflows/pull/7)) _@stevehipwell_
 - Update _docker/login-action_ from `3.3.0` to [`3.4.0`](https://github.com/docker/login-action/releases/tag/v3.4.0). ([#8](https://github.com/action-stars/build-workflows/pull/8)) _@dependabot_
+- Updated _github/codeql-action_ from `3.28.11` to [`3.28.13`](https://github.com/github/codeql-action/releases/tag/v3.28.13). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
+- Updated _actions/upload-artifact_ from `4.6.1` to [`4.6.2`](https://github.com/actions/upload-artifact/releases/tag/v4.6.2). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
+- Updated _actions/download-artifact_ from `4.1.9` to [`4.2.1`](https://github.com/actions/download-artifact/releases/tag/v4.2.1). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
 
 ## [v0.3.0] - 2025-03-12
 
@@ -50,7 +55,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.3.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.4.0...HEAD
+[v0.4.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.4.0
 [v0.3.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.3.0
 [v0.2.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.2.0
 [v0.1.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.1.0
