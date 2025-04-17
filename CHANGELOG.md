@@ -17,7 +17,7 @@
 
 ### Changed
 
-- Update _github/codeql-action_ from `3.28.13` to [`3.28.14`](https://github.com/github/codeql-action/releases/tag/v3.28.14). ([#11](https://github.com/action-stars/build-workflows/pull/11)) _@dependabot_
+- Update _github/codeql-action_ from `3.28.13` to [`3.28.15`](https://github.com/github/codeql-action/releases/tag/v3.28.15). ([#11](https://github.com/action-stars/build-workflows/pull/11) & [#12](https://github.com/action-stars/build-workflows/pull/12)) _@dependabot_
 
 ## [v0.4.0] - 2025-03-27
 
