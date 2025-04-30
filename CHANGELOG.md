@@ -15,9 +15,17 @@
 
 ## [UNRELEASED]
 
+## [v0.5.0] - 2025-04-30
+
 ### Changed
 
-- Update _github/codeql-action_ from `3.28.13` to [`3.28.15`](https://github.com/github/codeql-action/releases/tag/v3.28.15). ([#11](https://github.com/action-stars/build-workflows/pull/11) & [#12](https://github.com/action-stars/build-workflows/pull/12)) _@dependabot_
+- Update _github/codeql-action_ from `3.28.13` to [`3.28.14`](https://github.com/github/codeql-action/releases/tag/v3.28.14). ([#11](https://github.com/action-stars/build-workflows/pull/11)) _@dependabot_
+- Update _github/codeql-action_ from `3.28.14` to [`3.28.15`](https://github.com/github/codeql-action/releases/tag/v3.28.15). ([#12](https://github.com/action-stars/build-workflows/pull/12)) _@dependabot_
+- Update _github/codeql-action_ from `3.28.15` to [`3.28.16`](https://github.com/github/codeql-action/releases/tag/v3.28.16). ([#13](https://github.com/action-stars/build-workflows/pull/13)) _@dependabot_
+- Update _actions/download-artifact_ from `4.2.1` to [`4.3.0`](https://github.com/actions/download-artifact/releases/tag/v4.3.0). ([#13](https://github.com/action-stars/build-workflows/pull/13)) _@dependabot_
+- Update _docker/build-push-action_ from `6.15.0` to [`6.16.0`](https://github.com/docker/build-push-action/releases/tag/v6.16.0). ([#13](https://github.com/action-stars/build-workflows/pull/13)) _@dependabot_
+- Update _actions/attest-build-provenance_ from `2.2.3` to [`2.3.0`](https://github.com/actions/attest-build-provenance/releases/tag/v2.3.0). ([#13](https://github.com/action-stars/build-workflows/pull/13)) _@dependabot_
+- Update _sigstore/cosign-installer_ from `3.8.1` to [`3.8.2`](https://github.com/sigstore/cosign-installer/releases/tag/v3.8.2). ([#13](https://github.com/action-stars/build-workflows/pull/13)) _@dependabot_
 
 ## [v0.4.0] - 2025-03-27
 
@@ -29,9 +37,9 @@
 
 - Only setup QEMU if the platform doesn't match the runner architecture. ([#7](https://github.com/action-stars/helm-workflows/pull/7)) _@stevehipwell_
 - Update _docker/login-action_ from `3.3.0` to [`3.4.0`](https://github.com/docker/login-action/releases/tag/v3.4.0). ([#8](https://github.com/action-stars/build-workflows/pull/8)) _@dependabot_
-- Updated _github/codeql-action_ from `3.28.11` to [`3.28.13`](https://github.com/github/codeql-action/releases/tag/v3.28.13). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
-- Updated _actions/upload-artifact_ from `4.6.1` to [`4.6.2`](https://github.com/actions/upload-artifact/releases/tag/v4.6.2). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
-- Updated _actions/download-artifact_ from `4.1.9` to [`4.2.1`](https://github.com/actions/download-artifact/releases/tag/v4.2.1). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
+- Update _github/codeql-action_ from `3.28.11` to [`3.28.13`](https://github.com/github/codeql-action/releases/tag/v3.28.13). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
+- Update _actions/upload-artifact_ from `4.6.1` to [`4.6.2`](https://github.com/actions/upload-artifact/releases/tag/v4.6.2). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
+- Update _actions/download-artifact_ from `4.1.9` to [`4.2.1`](https://github.com/actions/download-artifact/releases/tag/v4.2.1). ([#9](https://github.com/action-stars/build-workflows/pull/9)) _@dependabot_
 
 ## [v0.3.0] - 2025-03-12
 
@@ -59,7 +67,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.4.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.5.0...HEAD
+[v0.5.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.5.0
 [v0.4.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.4.0
 [v0.3.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.3.0
 [v0.2.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.2.0
