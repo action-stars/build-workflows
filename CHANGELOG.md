@@ -15,9 +15,12 @@
 
 ## [UNRELEASED]
 
+## [v0.5.1] - 2025-05-13
+
 ### Changed
 
 - Update _github/codeql-action_ from `3.28.16` to [`3.28.17`](https://github.com/github/codeql-action/releases/tag/v3.28.17). ([#14](https://github.com/action-stars/build-workflows/pull/14)) _@dependabot_
+- Update _action-stars/install-tool-from-github-release_ from `0.2.4` to [`0.2.5`](https://github.com/action-stars/install-tool-from-github-release/releases/tag/v0.2.5). ([#16](https://github.com/action-stars/build-workflows/pull/16)) _@dependabot_
 
 ## [v0.5.0] - 2025-04-30
 
@@ -71,7 +74,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.5.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.5.1...HEAD
+[v0.5.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.5.1
 [v0.5.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.5.0
 [v0.4.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.4.0
 [v0.3.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.3.0
