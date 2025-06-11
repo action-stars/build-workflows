@@ -19,6 +19,8 @@
 
 - Update _github/codeql-action_ from `3.28.17` to [`3.28.18`](https://github.com/github/codeql-action/releases/tag/v3.28.18). ([#17](https://github.com/action-stars/build-workflows/pull/17)) _@dependabot_
 - Update _docker/build-push-action_ from `6.16.0` to [`6.17.0`](https://github.com/docker/build-push-action/releases/tag/v6.17.0). ([#17](https://github.com/action-stars/build-workflows/pull/17)) _@dependabot_
+- Update _github/codeql-action_ from `3.28.18` to [`3.28.19`](https://github.com/github/codeql-action/releases/tag/v3.28.19). ([#18](https://github.com/action-stars/build-workflows/pull/18)) _@dependabot_
+- Update _docker/build-push-action_ from `6.17.0` to [`6.18.0`](https://github.com/docker/build-push-action/releases/tag/v6.17.0). ([#18](https://github.com/action-stars/build-workflows/pull/18)) _@dependabot_
 
 ## [v0.5.1] - 2025-05-13
 
