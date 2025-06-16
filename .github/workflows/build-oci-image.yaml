@@ -154,7 +154,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Hadolint SARIF report
-        uses: github/codeql-action/upload-sarif@fca7ace96b7d713c7035871441bd52efbe39e27e # v3.28.19
+        uses: github/codeql-action/upload-sarif@ce28f5bb42b7a9f2c824e633a3f6ee835bab6858 # v3.29.0
         if: inputs.push_sarif
         with:
           category: hadolint-${{ steps.setup.outputs.artifact_key }}
@@ -226,7 +226,7 @@ jobs:
         if: matrix.platform != 'linux/amd64' && matrix.platform != 'linux/arm64'
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+        uses: docker/setup-buildx-action@18ce135bb5112fa8ce4ed6c17ab05699d7f3a5e0 # v3.11.0
 
       - name: Generate OCI image metadata
         id: metadata
@@ -257,7 +257,7 @@ jobs:
           outputs: type=image,name-canonical=true,oci-mediatypes=true,push-by-digest=true,push=${{ inputs.push_image && 'true' || 'false' }}
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@db473fddc028af60658334401dc6fa3ffd8669fd # v2.3.0
+        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -291,7 +291,7 @@ jobs:
           echo "path=${sbom_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Attest SBOM
-        uses: actions/attest-sbom@115c3be05ff3974bcbd596578934b3f9ce39bf68 # v2.2.0
+        uses: actions/attest-sbom@bd218ad0dbcb3e146bd073d1d9c6d78e08aa8a0b # v2.4.0
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -342,7 +342,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Grype SARIF report
-        uses: github/codeql-action/upload-sarif@fca7ace96b7d713c7035871441bd52efbe39e27e # v3.28.19
+        uses: github/codeql-action/upload-sarif@ce28f5bb42b7a9f2c824e633a3f6ee835bab6858 # v3.29.0
         if: inputs.scan_image && inputs.push_sarif
         with:
           category: grype-${{ steps.setup.outputs.artifact_key }}
@@ -411,7 +411,7 @@ jobs:
           password: ${{ github.token }}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+        uses: docker/setup-buildx-action@18ce135bb5112fa8ce4ed6c17ab05699d7f3a5e0 # v3.11.0
 
       - name: Generate OCI image metadata
         id: metadata
@@ -467,7 +467,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@db473fddc028af60658334401dc6fa3ffd8669fd # v2.3.0
+        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
         with:
           github-token: ${{ github.token }}
           subject-name: ${{ needs.validate.outputs.image }}
