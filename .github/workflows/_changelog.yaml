@@ -29,7 +29,7 @@ jobs:
           scope: ${{ github.repository}}
           identity: actions-pr
       - name: Changelog
-        uses: crambl/dependabot-changelog-writer@4eb773df4dc1160f77f1c7eb5eb8c6b117351380 # v1.2.0-rc.1
+        uses: crambl/dependabot-changelog-writer@de64777fbc8a724eaca6cba5c2427b14d91e0ffb # v1.2.0-rc.2
         with:
           push-token: ${{ steps.sts.outputs.token }}
           commit-message: "chore: Update changelog for Dependabot"
