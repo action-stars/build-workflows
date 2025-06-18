@@ -22,14 +22,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          fetch-depth: 0
+          fetch-depth: 1
       - uses: octo-sts/action@210248e8ae1ae1550aa6e232c6f192b3ccbf7335
         id: sts
         with:
           scope: ${{ github.repository}}
           identity: actions-pr
       - name: Changelog
-        uses: crambl/dependabot-changelog-writer@d8a03cc25884a779fbb4f70044b2fe51fbd0735d # v1.2.0-rc.4
+        uses: crambl/dependabot-changelog-writer@8dd0c18fe09e8bf61c398f449956d85ba1acdf90 # v1.2.0-rc.5
         with:
           push-token: ${{ steps.sts.outputs.token }}
           commit-message: "chore: Update changelog for Dependabot"
