@@ -15,17 +15,19 @@
 
 ## [UNRELEASED]
 
+## [v0.6.0] - 2025-06-30
+
 ### Changed
 
 - Update _github/codeql-action_ from `3.28.17` to [`3.28.18`](https://github.com/github/codeql-action/releases/tag/v3.28.18). ([#17](https://github.com/action-stars/build-workflows/pull/17)) _@dependabot_
 - Update _docker/build-push-action_ from `6.16.0` to [`6.17.0`](https://github.com/docker/build-push-action/releases/tag/v6.17.0). ([#17](https://github.com/action-stars/build-workflows/pull/17)) _@dependabot_
 - Update _github/codeql-action_ from `3.28.18` to [`3.28.19`](https://github.com/github/codeql-action/releases/tag/v3.28.19). ([#18](https://github.com/action-stars/build-workflows/pull/18)) _@dependabot_
 - Update _docker/build-push-action_ from `6.17.0` to [`6.18.0`](https://github.com/docker/build-push-action/releases/tag/v6.17.0). ([#18](https://github.com/action-stars/build-workflows/pull/18)) _@dependabot_
-- Update _github/codeql-action_ from `3.28.19` to `3.29.0`. ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
-- Update _docker/setup-buildx-action_ from `3.10.0` to `3.11.1`. ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
-- Update _actions/attest-build-provenance_ from `2.3.0` to `2.4.0`. ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
-- Update _actions/attest-sbom_ from `2.2.0` to `2.4.0`. ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
-- Update _sigstore/cosign-installer_ from `3.8.2` to `3.9.0`. ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
+- Update _github/codeql-action_ from `3.28.19` to [`3.29.0`](https://github.com/github/codeql-action/releases/tag/v3.29.0). ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
+- Update _docker/setup-buildx-action_ from `3.10.0` to [`3.11.1`](https://github.com/docker/setup-buildx-action/releases/tag/v3.11.1). ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
+- Update _actions/attest-build-provenance_ from `2.3.0` to [`2.4.0`](https://github.com/actions/attest-build-provenance/releases/tag/v2.4.0). ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
+- Update _actions/attest-sbom_ from `2.2.0` to [`2.4.0`](https://github.com/actions/attest-sbom/releases/tag/v2.4.0). ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
+- Update _sigstore/cosign-installer_ from `3.8.2` to [`3.9.0`](https://github.com/sigstore/cosign-installer/releases/tag/v3.9.0). ([#20](https://github.com/action-stars/build-workflows/pull/20)) _@dependabot_
 
 ## [v0.5.1] - 2025-05-13
 
@@ -86,7 +88,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.5.1...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.6.0...HEAD
+[v0.6.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.6.0
 [v0.5.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.5.1
 [v0.5.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.5.0
 [v0.4.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.4.0
