@@ -18,6 +18,10 @@
 ### Changed
 
 - Update _github/codeql-action_ from `3.29.1` to `3.29.2`. ([#21](https://github.com/action-stars/build-workflows/pull/21)) _@dependabot_
+- Update _github/codeql-action_ from `3.29.2` to `3.29.5`. ([#23](https://github.com/action-stars/build-workflows/pull/23)) _@dependabot_
+- Update _docker/login-action_ from `3.4.0` to `3.5.0`. ([#23](https://github.com/action-stars/build-workflows/pull/23)) _@dependabot_
+- Update _docker/metadata-action_ from `5.7.0` to `5.8.0`. ([#23](https://github.com/action-stars/build-workflows/pull/23)) _@dependabot_
+- Update _sigstore/cosign-installer_ from `3.9.1` to `3.9.2`. ([#23](https://github.com/action-stars/build-workflows/pull/23)) _@dependabot_
 
 ## [v0.6.0] - 2025-06-30
 
