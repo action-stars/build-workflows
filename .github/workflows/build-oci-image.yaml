@@ -252,8 +252,8 @@ jobs:
           tags: ${{ needs.validate.outputs.image }}
           provenance: false
           sbom: false
-          cache-from: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }}-${{ matrix.platform }}
-          cache-to: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }}-${{ matrix.platform }},mode=max
+          cache-from: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }}
+          cache-to: type=gha,scope=buildkit-${{ steps.setup.outputs.artifact_key }},mode=max
           outputs: type=image,name-canonical=true,oci-mediatypes=true,push-by-digest=true,push=${{ inputs.push_image && 'true' || 'false' }}
 
       - name: Attest OCI image
@@ -269,7 +269,7 @@ jobs:
       - name: Install Syft
         uses: action-stars/install-tool-from-github-release@f2e83e089fa618aa7e9fd3452fbcf4fe1598ede2 # v0.2.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           owner: anchore
           repository: syft
           check_command: syft --version
@@ -284,11 +284,16 @@ jobs:
           image="${{ needs.validate.outputs.image }}"
           digest="${{ steps.build.outputs.digest }}"
 
-          sbom_path="${{ runner.temp }}/syft-sbom-${{ steps.setup.outputs.artifact_key }}.spdx.json"
+          sbom_dir="${{ runner.temp }}/sboms"
+          sbom_path="${sbom_dir}/syft-sbom-${{ steps.setup.outputs.artifact_key }}.spdx.json"
+          mkdir -p "${sbom_dir}"
 
           syft --source-name "${{ github.repository }}" --source-version "${digest}" --platform "${platform}" -o "spdx-json=${sbom_path}" "${image}@${digest}"
 
-          echo "path=${sbom_path}" >> "${GITHUB_OUTPUT}"
+          {
+            echo "dir=${sbom_dir}"
+            echo "path=${sbom_path}"
+          } >> "${GITHUB_OUTPUT}"
 
       - name: Attest SBOM
         uses: actions/attest-sbom@bd218ad0dbcb3e146bd073d1d9c6d78e08aa8a0b # v2.4.0
@@ -301,15 +306,15 @@ jobs:
           push-to-registry: true
           show-summary: true
 
-      - name: Upload SBOMs to Dependency Graph
+      - name: Upload SBOM to Dependency Graph
         uses: advanced-security/spdx-dependency-submission-action@5530bab9ee4bbe66420ce8280624036c77f89746 # v0.1.1
         if: inputs.push_sbom
         with:
           token: ${{ github.token }}
-          filePath: "."
+          filePath: ${{ steps.syft.outputs.dir }}
           filePattern: "*.spdx.json"
 
-      - name: Upload SBOM artifacts
+      - name: Upload SBOM artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: sbom-${{ steps.setup.outputs.artifact_key }}
@@ -486,6 +491,56 @@ jobs:
           digest="${{ steps.manifest.outputs.digest }}"
 
           cosign sign --yes=true --recursive "${image}@${digest}"
+
+      - name: Install Sbomz
+        uses: action-stars/install-tool-from-github-release@f2e83e089fa618aa7e9fd3452fbcf4fe1598ede2 # v0.2.5
+        if: inputs.scan_image
+        with:
+          github_token: ${{ github.token }}
+          owner: siggy
+          repository: sbomz
+          extract: false
+          filename_format: "{name}-v{version}-{os}-{arch}"
+          check_command: sbomz version
+          version: latest
+
+      - name: Generate SBOM
+        id: sbomz
+        run: |
+          set -euo pipefail
+
+          image="${{ needs.validate.outputs.image }}"
+          digest="${{ steps.manifest.outputs.digest }}"
+
+          sbom_dir="${{ runner.temp }}/sboms"
+          sbom_path="${sbom_dir}/sbomz-sbom.spdx.json"
+          mkdir -p "${sbom_dir}"
+
+          sbomz generate "${image}@${digest}" > "${sbom_path}"
+
+          {
+            echo "dir=${sbom_dir}"
+            echo "path=${sbom_path}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Attest SBOM
+        uses: actions/attest-sbom@bd218ad0dbcb3e146bd073d1d9c6d78e08aa8a0b # v2.4.0
+        if: inputs.push_image
+        with:
+          github-token: ${{ github.token }}
+          subject-name: ${{ needs.validate.outputs.image }}
+          subject-digest: ${{ steps.manifest.outputs.digest }}
+          sbom-path: ${{ steps.sbomz.outputs.path }}
+          push-to-registry: true
+          show-summary: true
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sbom-${{ needs.validate.outputs.artifact_key }}
+          retention-days: 28
+          if-no-files-found: error
+          path: ${{ steps.sbomz.outputs.path }}
 
       - name: Summary
         run: |

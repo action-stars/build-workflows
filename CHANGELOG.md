@@ -15,6 +15,10 @@
 
 ## [UNRELEASED]
 
+### Added
+
+- Add manifest SBOM. ([#24](https://github.com/action-stars/build-workflows/pull/24)) _@stevehipwell_
+
 ### Changed
 
 - Update _github/codeql-action_ from `3.29.1` to `3.29.2`. ([#21](https://github.com/action-stars/build-workflows/pull/21)) _@dependabot_
