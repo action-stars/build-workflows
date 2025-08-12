@@ -15,6 +15,10 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _[actions/checkout](https://github.com/actions/checkout)_ from `4.2.2` to `5.0.0`. ([#26](https://github.com/action-stars/build-workflows/pull/26)) _@dependabot_
+
 ## [v0.7.0] - 2025-08-08
 
 ### Added
