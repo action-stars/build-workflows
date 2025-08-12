@@ -19,6 +19,8 @@
 
 - Update _[actions/checkout](https://github.com/actions/checkout)_ from `4.2.2` to `5.0.0`. ([#26](https://github.com/action-stars/build-workflows/pull/26)) _@dependabot_
 - Update _[actions/download-artifact](https://github.com/actions/download-artifact)_ from `4.3.0` to `5.0.0`. ([#27](https://github.com/action-stars/build-workflows/pull/27)) _@dependabot_
+- Update _action-stars/generic-workflows_ from `0.6.0` to `0.7.0`. ([#28](https://github.com/action-stars/build-workflows/pull/28)) _@dependabot_
+- Update _github/codeql-action_ from `3.29.7` to `3.29.9`. ([#28](https://github.com/action-stars/build-workflows/pull/28)) _@dependabot_
 
 ## [v0.7.0] - 2025-08-08
 
