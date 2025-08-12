@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.8.0] - 2025-08-12
+
 ### Changed
 
 - Update _[actions/checkout](https://github.com/actions/checkout)_ from `4.2.2` to `5.0.0`. ([#26](https://github.com/action-stars/build-workflows/pull/26)) _@dependabot_
@@ -109,7 +111,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.7.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.8.0...HEAD
+[v0.8.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.0
 [v0.7.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.7.0
 [v0.6.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.6.0
 [v0.5.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.5.1
