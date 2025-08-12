@@ -15,6 +15,10 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _github/codeql-action_ from `3.29.7` to `3.29.8`. ([#25](https://github.com/action-stars/build-workflows/pull/25)) _@dependabot_
+
 ## [v0.7.0] - 2025-08-08
 
 ### Added
