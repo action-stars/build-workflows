@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.8.1] - 2025-09-03
+
 ### Changed
 
 - Update _github/codeql-action_ from `3.29.9` to `3.29.10`. ([#29](https://github.com/action-stars/build-workflows/pull/29)) _@dependabot_
@@ -117,7 +119,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.8.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.8.1...HEAD
+[v0.8.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.1
 [v0.8.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.0
 [v0.7.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.7.0
 [v0.6.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.6.0
