@@ -136,7 +136,6 @@ jobs:
           owner: hadolint
           repository: hadolint
           arch_amd64: x86_64
-          os_linux: Linux
           extract: false
           filename_format: "{name}-{os}-{arch}"
           check_command: hadolint --version
