@@ -18,6 +18,7 @@
 ### Changed
 
 - Update _[actions/attest-build-provenance](https://github.com/actions/attest-build-provenance)_ from `2.4.0` to `3.0.0`. ([#34](https://github.com/action-stars/build-workflows/pull/34)) _@dependabot_
+- Update _[actions/attest-sbom](https://github.com/actions/attest-sbom)_ from `2.4.0` to `3.0.0`. ([#33](https://github.com/action-stars/build-workflows/pull/33)) _@dependabot_
 
 ## [v0.8.1] - 2025-09-03
 
