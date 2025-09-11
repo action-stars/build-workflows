@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.9.0] - 2025-09-11
+
 ### Changed
 
 - Update _actions/attest-build-provenance_ from `2.4.0` to `3.0.0`. ([#34](https://github.com/action-stars/build-workflows/pull/34)) _@dependabot_
@@ -129,7 +131,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.8.1...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.9.0...HEAD
+[v0.9.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.9.0
 [v0.8.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.1
 [v0.8.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.0
 [v0.7.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.7.0
