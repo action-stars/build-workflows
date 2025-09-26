@@ -29,22 +29,22 @@ on:
         description: Pattern to match artifacts that should be downloaded to be used for image building. The path where these artifacts are downloaded to is available in the `WORKFLOW_ARTIFACTS` build argument.
         type: string
         required: false
-        default: ''
+        default: ""
       labels:
         description: Labels to apply to the image; as multi-line values in the format `<key>=<value>`.
         type: string
         required: false
-        default: ''
+        default: ""
       annotations:
         description: Annotations to apply to the manifest image; as multi-line values in the format `<key>=<value>`.
         type: string
         required: false
-        default: ''
+        default: ""
       tags:
         description: Tags to apply to the image; as comma separated values. If no tags are provided then a tag will be created from the Git short SHA.
         type: string
         required: false
-        default: ''
+        default: ""
       scan_image:
         description: Whether to scan the image with Grype.
         type: boolean
@@ -100,7 +100,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-          fetch-depth: 1
+          fetch-depth: 2
 
       - name: Setup
         id: setup
@@ -180,7 +180,6 @@ jobs:
       contents: write
       id-token: write
       packages: write
-      security-events: write
     defaults:
       run:
         shell: bash
@@ -188,7 +187,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-          fetch-depth: 1
+          fetch-depth: 2
 
       - name: Download artifacts
         id: workflow_artifacts
@@ -287,7 +286,7 @@ jobs:
           sbom_path="${sbom_dir}/syft-sbom-${{ steps.setup.outputs.artifact_key }}.spdx.json"
           mkdir -p "${sbom_dir}"
 
-          syft --source-name "${{ github.repository }}" --source-version "${digest}" --platform "${platform}" -o "spdx-json=${sbom_path}" "${image}@${digest}"
+          syft --source-name "${{ github.repository }}" --source-version "${digest}" --platform "${platform}" --output "spdx-json=${sbom_path}" "${image}@${digest}"
 
           {
             echo "dir=${sbom_dir}"
@@ -305,13 +304,23 @@ jobs:
           push-to-registry: true
           show-summary: true
 
-      - name: Upload SBOM to Dependency Graph
-        uses: advanced-security/spdx-dependency-submission-action@5530bab9ee4bbe66420ce8280624036c77f89746 # v0.1.1
+      - name: Submit SBOM
         if: inputs.push_sbom
-        with:
-          token: ${{ github.token }}
-          filePath: ${{ steps.syft.outputs.dir }}
-          filePattern: "*.spdx.json"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          IMAGE: ${{ inputs.repository }}/${{ inputs.name }}
+          DOCKERFILE: ${{ inputs.dockerfile }}
+          ARTIFACT_KEY: ${{ steps.setup.outputs.artifact_key }}
+          SBOM_PATH: ${{ steps.syft.outputs.path }}
+        run: |
+          set -euo pipefail
+
+          syft_version_out="$(syft --version)"
+          syft_version="${syft_version_out##* }"
+
+          sha="${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
+
+          syft convert --output github-json "${SBOM_PATH}" | jq --arg syftVersion "${syft_version}" --arg runId "${{ github.run_id }}" --arg correlator "${ARTIFACT_KEY}" --arg ref "${{ github.ref }}" --arg sha "${sha}" --arg image "${IMAGE}" --arg dockerfile "${DOCKERFILE}" '.detector += {"name": "syft", "version": $syftVersion} | .job = {"id": $runId, "correlator": $correlator} | .ref = $ref | .sha = $sha | .manifests[$image].file.source_location = $dockerfile' | gh api --method POST --header "Accept: application/vnd.github+json" --header "X-GitHub-Api-Version: 2022-11-28" "/repos/${{ github.repository }}/dependency-graph/snapshots" --input -
 
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

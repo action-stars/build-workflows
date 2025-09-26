@@ -18,6 +18,8 @@
 ### Changed
 
 - Update _sigstore/cosign-installer_ from `3.9.2` to `3.10.0`. ([#36](https://github.com/action-stars/build-workflows/pull/36)) _@dependabot_
+- Use GitHub dependency format created by `syft`. ([#37](https://github.com/action-stars/build-workflows/pull/37)) _@stevehipwell_
+- Deduplicate GitHub dependency submissions. ([#37](https://github.com/action-stars/build-workflows/pull/37)) _@stevehipwell_
 
 ## [v0.9.0] - 2025-09-11
 
