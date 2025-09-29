@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.10.0] - 2025-09-29
+
 ### Changed
 
 - Update _sigstore/cosign-installer_ from `3.9.2` to `3.10.0`. ([#36](https://github.com/action-stars/build-workflows/pull/36)) _@dependabot_
@@ -140,7 +142,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.9.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.0...HEAD
+[v0.10.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.0
 [v0.9.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.9.0
 [v0.8.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.1
 [v0.8.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.0
