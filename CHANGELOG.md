@@ -15,6 +15,12 @@
 
 ## [UNRELEASED]
 
+## [v0.10.1] - 2025-09-29
+
+### Fixed
+
+- Fix removal of `security-events` write permission. ([#40](https://github.com/action-stars/build-workflows/pull/40)) _@stevehipwell_
+
 ## [v0.10.0] - 2025-09-29
 
 ### Changed
@@ -142,7 +148,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.1...HEAD
+[v0.10.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.1
 [v0.10.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.0
 [v0.9.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.9.0
 [v0.8.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.8.1
