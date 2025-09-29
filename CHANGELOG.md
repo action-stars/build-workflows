@@ -20,6 +20,9 @@
 - Update _sigstore/cosign-installer_ from `3.9.2` to `3.10.0`. ([#36](https://github.com/action-stars/build-workflows/pull/36)) _@dependabot_
 - Use GitHub dependency format created by `syft`. ([#37](https://github.com/action-stars/build-workflows/pull/37)) _@stevehipwell_
 - Deduplicate GitHub dependency submissions. ([#37](https://github.com/action-stars/build-workflows/pull/37)) _@stevehipwell_
+- Update _action-stars/generic-workflows_ from `0.7.1` to `0.7.2`. ([#39](https://github.com/action-stars/build-workflows/pull/39)) _@dependabot_
+- Update _github/codeql-action_ from `3.30.3` to `3.30.5`. ([#39](https://github.com/action-stars/build-workflows/pull/39)) _@dependabot_
+- Update _docker/login-action_ from `3.5.0` to `3.6.0`. ([#39](https://github.com/action-stars/build-workflows/pull/39)) _@dependabot_
 
 ## [v0.9.0] - 2025-09-11
 
