@@ -21,6 +21,7 @@
 - Update _action-stars/install-tool-_ from `-github-release` from 0.2.5` to `0.2.6`. ([#45](https://github.com/action-stars/build-workflows/pull/45)) _@dependabot_
 - Update _[sigstore/cosign-installer](https://github.com/sigstore/cosign-installer)_ from `3.10.0` to `4.0.0`. ([#42](https://github.com/action-stars/build-workflows/pull/42)) _@dependabot_
 - Update _[actions/download-artifact](https://github.com/actions/download-artifact)_ from `5.0.0` to `6.0.0`. ([#44](https://github.com/action-stars/build-workflows/pull/44)) _@dependabot_
+- Update _[github/codeql-action](https://github.com/github/codeql-action)_ from `3.30.5` to `4.30.9`. ([#43](https://github.com/action-stars/build-workflows/pull/43)) _@dependabot_
 
 ## [v0.10.1] - 2025-09-29
 
