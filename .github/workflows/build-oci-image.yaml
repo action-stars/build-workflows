@@ -160,7 +160,7 @@ jobs:
           sarif_file: ${{ steps.hadolint.outputs.path }}
 
       - name: Upload Hadolint artifacts
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: hadolint-${{ steps.setup.outputs.artifact_key }}
           path: ${{ steps.hadolint.outputs.path }}
@@ -324,7 +324,7 @@ jobs:
           syft convert --output github-json "${SBOM_PATH}" | jq --arg syftVersion "${syft_version}" --arg runId "${{ github.run_id }}" --arg correlator "${ARTIFACT_KEY}" --arg ref "${{ github.ref }}" --arg sha "${sha}" --arg image "${IMAGE}" --arg dockerfile "${DOCKERFILE}" '.detector += {"name": "syft", "version": $syftVersion} | .job = {"id": $runId, "correlator": $correlator} | .ref = $ref | .sha = $sha | .manifests[$image].file.source_location = $dockerfile' | gh api --method POST --header "Accept: application/vnd.github+json" --header "X-GitHub-Api-Version: 2022-11-28" "/repos/${{ github.repository }}/dependency-graph/snapshots" --input -
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: sbom-${{ steps.setup.outputs.artifact_key }}
           retention-days: 28
@@ -363,7 +363,7 @@ jobs:
           sarif_file: ${{ steps.grype.outputs.path }}
 
       - name: Upload Grype artifacts
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         if: inputs.scan_image
         with:
           name: grype-${{ steps.setup.outputs.artifact_key }}
@@ -386,7 +386,7 @@ jobs:
           echo "digests_path=${digests_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload digest
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: digests-${{ steps.setup.outputs.artifact_key }}
           path: ${{ steps.digest.outputs.digests_path }}/*
@@ -544,7 +544,7 @@ jobs:
           show-summary: true
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: sbom-${{ needs.validate.outputs.artifact_key }}
           retention-days: 28
