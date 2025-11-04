@@ -15,10 +15,11 @@
 
 ## [UNRELEASED]
 
+## [v0.10.2] - 2025-11-04
+
 ### Changed
 
-- Update _the github-actions group with 1 update: [action-stars/install-tool-_ from `-github-release](https://github.com/action-stars/install-` to `ol-from-github-release)`. ([#45](https://github.com/action-stars/build-workflows/pull/45)) _@dependabot_
-- Update _action-stars/install-tool-_ from `-github-release` from 0.2.5` to `0.2.6`. ([#45](https://github.com/action-stars/build-workflows/pull/45)) _@dependabot_
+- Update _action-stars/install-tool-from-github-release_ from `0.2.5` to `0.2.6`. ([#45](https://github.com/action-stars/build-workflows/pull/45)) _@dependabot_
 - Update _[sigstore/cosign-installer](https://github.com/sigstore/cosign-installer)_ from `3.10.0` to `4.0.0`. ([#42](https://github.com/action-stars/build-workflows/pull/42)) _@dependabot_
 - Update _[actions/download-artifact](https://github.com/actions/download-artifact)_ from `5.0.0` to `6.0.0`. ([#44](https://github.com/action-stars/build-workflows/pull/44)) _@dependabot_
 - Update _[github/codeql-action](https://github.com/github/codeql-action)_ from `3.30.5` to `4.30.9`. ([#43](https://github.com/action-stars/build-workflows/pull/43)) _@dependabot_
@@ -158,7 +159,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.1...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.2...HEAD
+[v0.10.2]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.2
 [v0.10.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.1
 [v0.10.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.0
 [v0.9.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.9.0
