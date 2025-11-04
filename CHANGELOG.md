@@ -19,6 +19,7 @@
 
 - Update _the github-actions group with 1 update: [action-stars/install-tool-_ from `-github-release](https://github.com/action-stars/install-` to `ol-from-github-release)`. ([#45](https://github.com/action-stars/build-workflows/pull/45)) _@dependabot_
 - Update _action-stars/install-tool-_ from `-github-release` from 0.2.5` to `0.2.6`. ([#45](https://github.com/action-stars/build-workflows/pull/45)) _@dependabot_
+- Update _[sigstore/cosign-installer](https://github.com/sigstore/cosign-installer)_ from `3.10.0` to `4.0.0`. ([#42](https://github.com/action-stars/build-workflows/pull/42)) _@dependabot_
 
 ## [v0.10.1] - 2025-09-29
 
