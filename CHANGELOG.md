@@ -19,6 +19,7 @@
 
 - Update _docker/setup-qemu-action_ from `3.6.0` to `3.7.0`. ([#48](https://github.com/action-stars/build-workflows/pull/48)) _@dependabot_
 - Update _docker/metadata-action_ from `5.8.0` to `5.9.0`. ([#48](https://github.com/action-stars/build-workflows/pull/48)) _@dependabot_
+- Update _github/codeql-action_ from `4.31.2` to `4.31.5`. ([#50](https://github.com/action-stars/build-workflows/pull/50)) _@dependabot_
 
 ## [v0.10.2] - 2025-11-04
 
