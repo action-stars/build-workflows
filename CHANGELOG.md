@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.10.3] - 2025-11-26
+
 ### Changed
 
 - Update _docker/setup-qemu-action_ from `3.6.0` to `3.7.0`. ([#48](https://github.com/action-stars/build-workflows/pull/48)) _@dependabot_
@@ -169,7 +171,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.2...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.3...HEAD
+[v0.10.3]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.3
 [v0.10.2]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.2
 [v0.10.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.1
 [v0.10.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.0
