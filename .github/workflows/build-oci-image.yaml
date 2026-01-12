@@ -153,7 +153,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Hadolint SARIF report
-        uses: github/codeql-action/upload-sarif@5d4e8d1aca955e8d8589aabd499c5cae939e33c7 # v3.29.5
+        uses: github/codeql-action/upload-sarif@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v3.29.5
         if: inputs.push_sarif
         with:
           category: hadolint-${{ steps.setup.outputs.artifact_key }}
@@ -356,7 +356,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Grype SARIF report
-        uses: github/codeql-action/upload-sarif@5d4e8d1aca955e8d8589aabd499c5cae939e33c7 # v3.29.5
+        uses: github/codeql-action/upload-sarif@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v3.29.5
         if: inputs.scan_image && inputs.push_sarif
         with:
           category: grype-${{ steps.setup.outputs.artifact_key }}
