@@ -25,6 +25,7 @@
 - Update _actions/attest-build-provenance_ from `3.0.0` to `3.1.0`. ([#55](https://github.com/action-stars/build-workflows/pull/55)) _@dependabot_
 - Update _[actions/download-artifact](https://github.com/actions/download-artifact)_ from `6.0.0` to `7.0.0`. ([#56](https://github.com/action-stars/build-workflows/pull/56)) _@dependabot_
 - Update _[actions/upload-artifact](https://github.com/actions/upload-artifact)_ from `5.0.0` to `6.0.0`. ([#57](https://github.com/action-stars/build-workflows/pull/57)) _@dependabot_
+- Update _github/codeql-action_ from `4.31.9` to `4.31.10`. ([#58](https://github.com/action-stars/build-workflows/pull/58)) _@dependabot_
 
 ## [v0.10.3] - 2025-11-26
 
