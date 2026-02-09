@@ -98,7 +98,7 @@ jobs:
       artifact_key: ${{ steps.setup.outputs.artifact_key }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 2
 
@@ -153,7 +153,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Hadolint SARIF report
-        uses: github/codeql-action/upload-sarif@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v3.29.5
+        uses: github/codeql-action/upload-sarif@45cbd0c69e560cd9e7cd7f8c32362050c9b7ded2 # v3.29.5
         if: inputs.push_sarif
         with:
           category: hadolint-${{ steps.setup.outputs.artifact_key }}
@@ -186,7 +186,7 @@ jobs:
         shell: bash
     steps:
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 2
 
@@ -213,7 +213,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         if: inputs.push_image
         with:
           registry: ghcr.io
@@ -256,7 +256,7 @@ jobs:
           outputs: type=image,name-canonical=true,oci-mediatypes=true,push-by-digest=true,push=${{ inputs.push_image && 'true' || 'false' }}
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+        uses: actions/attest-build-provenance@96278af6caaf10aea03fd8d33a09a777ca52d62f # v3.2.0
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -356,7 +356,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Grype SARIF report
-        uses: github/codeql-action/upload-sarif@cdefb33c0f6224e58673d9004f47f7cb3e328b89 # v3.29.5
+        uses: github/codeql-action/upload-sarif@45cbd0c69e560cd9e7cd7f8c32362050c9b7ded2 # v3.29.5
         if: inputs.scan_image && inputs.push_sarif
         with:
           category: grype-${{ steps.setup.outputs.artifact_key }}
@@ -418,7 +418,7 @@ jobs:
           merge-multiple: true
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -438,7 +438,7 @@ jobs:
           annotations: ${{ inputs.annotations }}
 
       - name: Setup Crane
-        uses: imjasonh/setup-crane@31b88efe9de28ae0ffa220711af4b60be9435f6e # v0.4
+        uses: imjasonh/setup-crane@6da1ae018866400525525ce74ff892880c099987 # v0.5
 
       - name: Build OCI manifest image
         id: manifest
@@ -481,7 +481,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@00014ed6ed5efc5b1ab7f7f34a39eb55d41aa4f8 # v3.1.0
+        uses: actions/attest-build-provenance@96278af6caaf10aea03fd8d33a09a777ca52d62f # v3.2.0
         with:
           github-token: ${{ github.token }}
           subject-name: ${{ needs.validate.outputs.image }}
