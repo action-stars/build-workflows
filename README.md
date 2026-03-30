@@ -10,6 +10,12 @@ This repository contains a collection of GitHub Actions workflows for building a
 This workflow builds a Docker image and pushes it to an OCI registry.
 
 <!-- MERGE:START:build-oci-image - Do not remove or modify this section -->
+### Secrets
+
+<!-- AUTO-DOC-SECRETS:START - Do not remove or modify this section -->
+No secrets.
+<!-- AUTO-DOC-SECRETS:END -->
+
 ### Inputs
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
@@ -31,6 +37,7 @@ This workflow builds a Docker image and pushes it to an OCI registry.
 |       tags        | string  |  false   |                             |                               Tags to apply to the image; as comma separated values. If no tags are provided then a tag will be created from the Git short SHA.                               |
 
 <!-- AUTO-DOC-INPUT:END -->
+
 ### Outputs
 
 <!-- AUTO-DOC-OUTPUT:START - Do not remove or modify this section -->
