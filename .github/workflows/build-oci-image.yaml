@@ -176,6 +176,7 @@ jobs:
         platform: ${{fromJson(needs.validate.outputs.platforms)}}
     runs-on: ${{ matrix.platform == 'linux/arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
     permissions:
+      artifact-metadata: write
       attestations: write
       contents: write
       id-token: write
@@ -399,6 +400,7 @@ jobs:
     needs: [validate, build]
     runs-on: ubuntu-latest
     permissions:
+      artifact-metadata: write
       attestations: write
       id-token: write
       packages: write

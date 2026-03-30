@@ -9,6 +9,17 @@ This repository contains a collection of GitHub Actions workflows for building a
 
 This workflow builds a Docker image and pushes it to an OCI registry.
 
+### Permissions
+
+| PERMISSION | SCOPE |
+|------------|-------|
+| artifact-metadata | write |
+| attestations | write |
+| contents | write |
+| id-token | write |
+| packages | write |
+| security-events | write |
+
 <!-- MERGE:START:build-oci-image - Do not remove or modify this section -->
 ### Secrets
 

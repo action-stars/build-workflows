@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.11.0] - 2025-03-30
+
 ### Changed
 
 - Update _github/codeql-action_ from `4.31.5` to `4.31.6`. ([#53](https://github.com/action-stars/build-workflows/pull/53)) _@dependabot_
@@ -35,6 +37,10 @@
 - Update _sigstore/cosign-installer_ from `4.0.0` to `4.1.0`. ([#64](https://github.com/action-stars/build-workflows/pull/64)) _@dependabot_
 - Update _github/codeql-action_ from `4.32.6` to `4.35.1`. ([#67](https://github.com/action-stars/build-workflows/pull/67)) _@dependabot_
 - Update _sigstore/cosign-installer_ from `4.1.0` to `4.1.1`. ([#67](https://github.com/action-stars/build-workflows/pull/67)) _@dependabot_
+
+### Fixed
+
+- Fix missing `artifact-metadata` permission for build job.
 
 ## [v0.10.3] - 2025-11-26
 
@@ -192,7 +198,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.10.3...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.11.0...HEAD
+[v0.11.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.11.0
 [v0.10.3]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.3
 [v0.10.2]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.2
 [v0.10.1]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.1
