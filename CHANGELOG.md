@@ -33,6 +33,8 @@
 - Update _github/codeql-action_ from `4.31.10` to `4.32.6`. ([#64](https://github.com/action-stars/build-workflows/pull/64)) _@dependabot_
 - Update _imjasonh/setup-crane_ from `0.4` to `0.5`. ([#64](https://github.com/action-stars/build-workflows/pull/64)) _@dependabot_
 - Update _sigstore/cosign-installer_ from `4.0.0` to `4.1.0`. ([#64](https://github.com/action-stars/build-workflows/pull/64)) _@dependabot_
+- Update _github/codeql-action_ from `4.32.6` to `4.35.1`. ([#67](https://github.com/action-stars/build-workflows/pull/67)) _@dependabot_
+- Update _sigstore/cosign-installer_ from `4.1.0` to `4.1.1`. ([#67](https://github.com/action-stars/build-workflows/pull/67)) _@dependabot_
 
 ## [v0.10.3] - 2025-11-26
 
