@@ -257,7 +257,7 @@ jobs:
           outputs: type=image,name-canonical=true,oci-mediatypes=true,push-by-digest=true,push=${{ inputs.push_image && 'true' || 'false' }}
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v4.1.0
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -296,7 +296,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest SBOM
-        uses: actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -483,7 +483,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest OCI image
-        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v4.1.0
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
         with:
           github-token: ${{ github.token }}
           subject-name: ${{ needs.validate.outputs.image }}
@@ -535,7 +535,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest SBOM
-        uses: actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
