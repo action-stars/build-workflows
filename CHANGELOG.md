@@ -15,6 +15,10 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _[docker/setup-qemu-action](https://github.com/docker/setup-qemu-action)_ from `3.7.0` to `4.0.0`. ([#68](https://github.com/action-stars/build-workflows/pull/68)) _@dependabot_
+
 ## [v0.11.0] - 2025-03-30
 
 ### Changed
