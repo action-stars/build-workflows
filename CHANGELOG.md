@@ -27,6 +27,7 @@
 - Update _action-stars/generic-workflows/.github/workflows/validate-gh-workflows.yaml_ from `0.8.0` to `0.9.0`. ([#73](https://github.com/action-stars/build-workflows/pull/73)) _@dependabot_
 - Update _[actions/attest-sbom](https://github.com/actions/attest-sbom)_ from `3.0.0` to `4.1.0`. ([#74](https://github.com/action-stars/build-workflows/pull/74)) _@dependabot_
 - Update _[docker/login-action](https://github.com/docker/login-action)_ from `3.6.0` to `4.0.0`. ([#75](https://github.com/action-stars/build-workflows/pull/75)) _@dependabot_
+- Update _[actions/attest-build-provenance](https://github.com/actions/attest-build-provenance)_ from `3.1.0` to `4.1.0`. ([#76](https://github.com/action-stars/build-workflows/pull/76)) _@dependabot_
 
 ## [v0.11.0] - 2025-03-30
 
