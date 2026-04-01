@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.12.0] - 2025-04-01
+
 ### Changed
 
 - Update _[docker/setup-qemu-action](https://github.com/docker/setup-qemu-action)_ from `3.7.0` to `4.0.0`. ([#68](https://github.com/action-stars/build-workflows/pull/68)) _@dependabot_
@@ -29,6 +31,7 @@
 - Update _[docker/login-action](https://github.com/docker/login-action)_ from `3.6.0` to `4.0.0`. ([#75](https://github.com/action-stars/build-workflows/pull/75)) _@dependabot_
 - Update _[actions/attest-build-provenance](https://github.com/actions/attest-build-provenance)_ from `3.1.0` to `4.1.0`. ([#76](https://github.com/action-stars/build-workflows/pull/76)) _@dependabot_
 - Update _[docker/metadata-action](https://github.com/docker/metadata-action)_ from `5.10.0` to `6.0.0`. ([#77](https://github.com/action-stars/build-workflows/pull/77)) _@dependabot_
+- Switch _actions/attest-build-provenance_ & _actions/attest-sbom_ to _actions/attest_. ([#78](https://github.com/action-stars/build-workflows/pull/78)) _@stevehipwell_
 
 ## [v0.11.0] - 2025-03-30
 
@@ -213,7 +216,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.11.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.12.0...HEAD
+[v0.12.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.12.0
 [v0.11.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.11.0
 [v0.10.3]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.3
 [v0.10.2]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.2
