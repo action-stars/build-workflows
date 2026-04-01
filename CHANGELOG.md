@@ -19,6 +19,7 @@
 
 - Update _[docker/setup-qemu-action](https://github.com/docker/setup-qemu-action)_ from `3.7.0` to `4.0.0`. ([#68](https://github.com/action-stars/build-workflows/pull/68)) _@dependabot_
 - Update _[actions/download-artifact](https://github.com/actions/download-artifact)_ from `7.0.0` to `8.0.1`. ([#69](https://github.com/action-stars/build-workflows/pull/69)) _@dependabot_
+- Update _[docker/build-push-action](https://github.com/docker/build-push-action)_ from `6.18.0` to `7.0.0`. ([#70](https://github.com/action-stars/build-workflows/pull/70)) _@dependabot_
 
 ## [v0.11.0] - 2025-03-30
 
