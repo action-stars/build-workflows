@@ -15,6 +15,10 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _docker/login-action_ from `4.0.0` to `4.1.0`. ([#79](https://github.com/action-stars/build-workflows/pull/79)) _@dependabot_
+
 ## [v0.12.0] - 2025-04-01
 
 ### Changed
