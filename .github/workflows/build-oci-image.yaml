@@ -98,7 +98,7 @@ jobs:
       artifact_key: ${{ steps.setup.outputs.artifact_key }}
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           fetch-depth: 2
 
@@ -153,14 +153,14 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Hadolint SARIF report
-        uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v3.29.5
+        uses: github/codeql-action/upload-sarif@87557b9c84dde89fdd9b10e88954ac2f4248e463 # v3.29.5
         if: inputs.push_sarif
         with:
           category: hadolint-${{ steps.setup.outputs.artifact_key }}
           sarif_file: ${{ steps.hadolint.outputs.path }}
 
       - name: Upload Hadolint artifacts
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: hadolint-${{ steps.setup.outputs.artifact_key }}
           path: ${{ steps.hadolint.outputs.path }}
@@ -187,7 +187,7 @@ jobs:
         shell: bash
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           fetch-depth: 2
 
@@ -214,7 +214,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         if: inputs.push_image
         with:
           registry: ghcr.io
@@ -222,15 +222,15 @@ jobs:
           password: ${{ github.token }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3 # v4.1.0
         if: matrix.platform != 'linux/amd64' && matrix.platform != 'linux/arm64'
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
 
       - name: Generate OCI image metadata
         id: metadata
-        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
           images: ${{ needs.validate.outputs.image }}
           labels: ${{ inputs.labels }}
@@ -238,7 +238,7 @@ jobs:
 
       - name: Build OCI image
         id: build
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
         env:
           SOURCE_DATE_EPOCH: ${{ needs.validate.outputs.source_date_epoch }}
         with:
@@ -325,7 +325,7 @@ jobs:
           syft convert --output github-json "${SBOM_PATH}" | jq --arg syftVersion "${syft_version}" --arg runId "${{ github.run_id }}" --arg correlator "${ARTIFACT_KEY}" --arg ref "${{ github.ref }}" --arg sha "${sha}" --arg image "${IMAGE}" --arg dockerfile "${DOCKERFILE}" '.detector += {"name": "syft", "version": $syftVersion} | .job = {"id": $runId, "correlator": $correlator} | .ref = $ref | .sha = $sha | .manifests[$image].file.source_location = $dockerfile' | gh api --method POST --header "Accept: application/vnd.github+json" --header "X-GitHub-Api-Version: 2022-11-28" "/repos/${{ github.repository }}/dependency-graph/snapshots" --input -
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sbom-${{ steps.setup.outputs.artifact_key }}
           retention-days: 28
@@ -357,14 +357,14 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Grype SARIF report
-        uses: github/codeql-action/upload-sarif@c10b8064de6f491fea524254123dbe5e09572f13 # v3.29.5
+        uses: github/codeql-action/upload-sarif@87557b9c84dde89fdd9b10e88954ac2f4248e463 # v3.29.5
         if: inputs.scan_image && inputs.push_sarif
         with:
           category: grype-${{ steps.setup.outputs.artifact_key }}
           sarif_file: ${{ steps.grype.outputs.path }}
 
       - name: Upload Grype artifacts
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: inputs.scan_image
         with:
           name: grype-${{ steps.setup.outputs.artifact_key }}
@@ -387,7 +387,7 @@ jobs:
           echo "digests_path=${digests_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload digest
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: digests-${{ steps.setup.outputs.artifact_key }}
           path: ${{ steps.digest.outputs.digests_path }}/*
@@ -420,18 +420,18 @@ jobs:
           merge-multiple: true
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
 
       - name: Generate OCI image metadata
         id: metadata
-        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         env:
           DOCKER_METADATA_ANNOTATIONS_LEVELS: index
         with:
@@ -440,7 +440,7 @@ jobs:
           annotations: ${{ inputs.annotations }}
 
       - name: Setup Crane
-        uses: imjasonh/setup-crane@6da1ae018866400525525ce74ff892880c099987 # v0.5
+        uses: imjasonh/setup-crane@59c71e96a00b28651f10369ba3359a6d730740a0 # v0.6
 
       - name: Build OCI manifest image
         id: manifest
@@ -492,7 +492,7 @@ jobs:
           show-summary: true
 
       - name: Install Cosign
-        uses: sigstore/cosign-installer@cad07c2e89fa2edd6e2d7bab4c1aa38e53f76003 # v4.1.1
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
 
       - name: Sign image
         run: |
@@ -546,7 +546,7 @@ jobs:
           show-summary: true
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sbom-${{ needs.validate.outputs.artifact_key }}
           retention-days: 28
