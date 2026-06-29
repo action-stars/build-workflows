@@ -15,6 +15,19 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _github/codeql-action/upload-sarif_ from `4.35.1` to `4.36.2`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _actions/upload-artifact_ from `7.0.0` to `7.0.1`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _docker/login-action_ from `4.0.0` to `4.2.0`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _docker/setup-qemu-action_ from `4.0.0` to `4.1.0`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _docker/setup-buildx-action_ from `4.0.0` to `4.1.0`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _docker/metadata-action_ from `6.0.0` to `6.1.0`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _docker/build-push-action_ from `7.0.0` to `7.2.0`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _actions/attest_ from `4.1.0` to `4.1.1`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _imjasonh/setup-crane_ from `0.5` to `0.7`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+- Update _sigstore/cosign-installer_ from `4.1.1` to `4.1.2`. ([#86](https://github.com/action-stars/build-workflows/pull/86)) _@dependabot_
+
 ## [v0.12.0] - 2025-04-01
 
 ### Changed
