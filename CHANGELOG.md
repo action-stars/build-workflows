@@ -15,6 +15,8 @@
 
 ## [UNRELEASED]
 
+## [v0.13.0] - 2025-07-01
+
 ### Changed
 
 - Update _action-stars/generic-workflows/.github/workflows/dependabot-changelog.yaml_ from `0.9.0` to `0.11.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
@@ -26,6 +28,7 @@
 - Update _docker/setup-qemu-action_ from `4.0.0` to `4.1.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
 - Update _docker/setup-buildx-action_ from `4.0.0` to `4.1.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
 - Update _docker/metadata-action_ from `6.0.0` to `6.1.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Use [action-stars/ghactl-action](https://github.com/action-stars/ghactl-action) ([`ghactl`](https://github.com/action-stars/ghactl)) for installing tools from GitHub releases. ([#88](https://github.com/action-stars/build-workflows/pull/88)) @dependabot
 
 ## [v0.12.0] - 2025-04-01
 
@@ -228,7 +231,8 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.12.0...HEAD
+[UNRELEASED]: https://github.com/action-stars/build-workflows/compare/v0.13.0...HEAD
+[v0.13.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.13.0
 [v0.12.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.12.0
 [v0.11.0]: https://github.com/action-stars/build-workflows/releases/tag/v0.11.0
 [v0.10.3]: https://github.com/action-stars/build-workflows/releases/tag/v0.10.3

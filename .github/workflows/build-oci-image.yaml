@@ -129,17 +129,19 @@ jobs:
             echo "artifact_key=${artifact_key}"
           } >> "${GITHUB_OUTPUT}"
 
-      - name: Install Hadolint
-        uses: action-stars/install-tool-from-github-release@1fa61c3bea52eca3bcdb1f5c961a3b113fe7fa54 # v0.2.6
+      - name: Install ghactl
+        uses: action-stars/ghactl-action@c556c5f2cfcb1f6643bdecf1bf601c706954a37a # v0.0.1
         with:
-          github_token: ${{ github.token }}
-          owner: hadolint
-          repository: hadolint
-          arch_amd64: x86_64
-          extract: false
-          filename_format: "{name}-{os}-{arch}"
-          check_command: hadolint --version
+          token: ${{ github.token }}
           version: latest
+
+      - name: Install tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          ghactl tool install --owner hadolint --repo hadolint --version latest
 
       - name: Run Hadolint
         id: hadolint
@@ -190,6 +192,21 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 2
+
+      - name: Install ghactl
+        uses: action-stars/ghactl-action@c556c5f2cfcb1f6643bdecf1bf601c706954a37a # v0.0.1
+        with:
+          token: ${{ github.token }}
+          version: latest
+
+      - name: Install tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          ghactl tool install --owner anchore --repo syft --version latest
+          ghactl tool install --owner anchore --repo grype --version latest
 
       - name: Download artifacts
         id: workflow_artifacts
@@ -266,15 +283,6 @@ jobs:
           push-to-registry: true
           show-summary: true
 
-      - name: Install Syft
-        uses: action-stars/install-tool-from-github-release@1fa61c3bea52eca3bcdb1f5c961a3b113fe7fa54 # v0.2.6
-        with:
-          github_token: ${{ github.token }}
-          owner: anchore
-          repository: syft
-          check_command: syft --version
-          version: latest
-
       - name: Generate SBOM
         id: syft
         run: |
@@ -331,16 +339,6 @@ jobs:
           retention-days: 28
           if-no-files-found: error
           path: ${{ steps.syft.outputs.path }}
-
-      - name: Install Grype
-        uses: action-stars/install-tool-from-github-release@1fa61c3bea52eca3bcdb1f5c961a3b113fe7fa54 # v0.2.6
-        if: inputs.scan_image
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          owner: anchore
-          repository: grype
-          check_command: grype --version
-          version: latest
 
       - name: Scan SBOM with Grype
         id: grype
@@ -411,6 +409,20 @@ jobs:
       digest: ${{ steps.manifest.outputs.digest }}
       platform_digests: ${{ steps.manifest.outputs.platform_digests }}
     steps:
+      - name: Install ghactl
+        uses: action-stars/ghactl-action@c556c5f2cfcb1f6643bdecf1bf601c706954a37a # v0.0.1
+        with:
+          token: ${{ github.token }}
+          version: latest
+
+      - name: Install tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          ghactl tool install --owner siggy --repo sbomz --version latest
+
       - name: Download digests
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         id: digests
