@@ -15,6 +15,18 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _action-stars/generic-workflows/.github/workflows/dependabot-changelog.yaml_ from `0.9.0` to `0.11.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/release.yaml_ from `0.9.0` to `0.11.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/validate-gh-workflows.yaml_ from `0.9.0` to `0.11.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _github/codeql-action/upload-sarif_ from `4.35.1` to `4.36.2`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _actions/upload-artifact_ from `7.0.0` to `7.0.1`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _docker/login-action_ from `4.0.0` to `4.2.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _docker/setup-qemu-action_ from `4.0.0` to `4.1.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _docker/setup-buildx-action_ from `4.0.0` to `4.1.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+- Update _docker/metadata-action_ from `6.0.0` to `6.1.0`. ([#87](https://github.com/action-stars/build-workflows/pull/87)) @dependabot
+
 ## [v0.12.0] - 2025-04-01
 
 ### Changed
