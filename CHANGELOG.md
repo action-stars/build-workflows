@@ -15,6 +15,15 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _github/codeql-action/upload-sarif_ from `4.36.2` to `4.36.3`. ([#89](https://github.com/action-stars/build-workflows/pull/89)) @dependabot
+- Update _docker/login-action_ from `4.2.0` to `4.4.0`. ([#89](https://github.com/action-stars/build-workflows/pull/89)) @dependabot
+- Update _docker/setup-qemu-action_ from `4.1.0` to `4.2.0`. ([#89](https://github.com/action-stars/build-workflows/pull/89)) @dependabot
+- Update _docker/setup-buildx-action_ from `4.1.0` to `4.2.0`. ([#89](https://github.com/action-stars/build-workflows/pull/89)) @dependabot
+- Update _docker/metadata-action_ from `6.1.0` to `6.2.0`. ([#89](https://github.com/action-stars/build-workflows/pull/89)) @dependabot
+- Update _docker/build-push-action_ from `7.2.0` to `7.3.0`. ([#89](https://github.com/action-stars/build-workflows/pull/89)) @dependabot
+
 ## [v0.13.0] - 2025-07-01
 
 ### Changed
