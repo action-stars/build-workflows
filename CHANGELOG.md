@@ -18,6 +18,13 @@
 ### Changed
 
 - Update _[actions/checkout](https://github.com/actions/checkout)_ from `6.0.2` to `7.0.0`. ([#90](https://github.com/action-stars/build-workflows/pull/90)) @dependabot
+- Update _action-stars/ghactl-action_ from `0.0.1` to `0.1.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
+- Update _github/codeql-action/upload-sarif_ from `4.36.2` to `4.37.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
+- Update _docker/login-action_ from `4.2.0` to `4.4.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
+- Update _docker/setup-qemu-action_ from `4.1.0` to `4.2.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
+- Update _docker/setup-buildx-action_ from `4.1.0` to `4.2.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
+- Update _docker/metadata-action_ from `6.1.0` to `6.2.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
+- Update _docker/build-push-action_ from `7.2.0` to `7.3.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
 
 ## [v0.13.0] - 2025-07-01
 
