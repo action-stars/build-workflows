@@ -15,6 +15,10 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _[actions/checkout](https://github.com/actions/checkout)_ from `6.0.2` to `7.0.0`. ([#90](https://github.com/action-stars/build-workflows/pull/90)) @dependabot
+
 ## [v0.13.0] - 2025-07-01
 
 ### Changed
