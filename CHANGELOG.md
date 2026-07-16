@@ -25,6 +25,9 @@
 - Update _docker/setup-buildx-action_ from `4.1.0` to `4.2.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
 - Update _docker/metadata-action_ from `6.1.0` to `6.2.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
 - Update _docker/build-push-action_ from `7.2.0` to `7.3.0`. ([#91](https://github.com/action-stars/build-workflows/pull/91)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/dependabot-changelog.yaml_ from `0.11.0` to `0.12.0`. ([#92](https://github.com/action-stars/build-workflows/pull/92)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/release.yaml_ from `0.11.0` to `0.12.0`. ([#92](https://github.com/action-stars/build-workflows/pull/92)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/validate-gh-workflows.yaml_ from `0.11.0` to `0.12.0`. ([#92](https://github.com/action-stars/build-workflows/pull/92)) @dependabot
 
 ## [v0.13.0] - 2025-07-01
 
