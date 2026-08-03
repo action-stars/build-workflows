@@ -155,7 +155,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Hadolint SARIF report
-        uses: github/codeql-action/upload-sarif@7188fc363630916deb702c7fdcf4e481b751f97a # v3.29.5
+        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v3.29.5
         if: inputs.push_sarif
         with:
           category: hadolint-${{ steps.setup.outputs.artifact_key }}
@@ -231,7 +231,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         if: inputs.push_image
         with:
           registry: ghcr.io
@@ -274,7 +274,7 @@ jobs:
           outputs: type=image,name-canonical=true,oci-mediatypes=true,push-by-digest=true,push=${{ inputs.push_image && 'true' || 'false' }}
 
       - name: Attest OCI image
-        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4.2.0
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -304,7 +304,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest SBOM
-        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4.2.0
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
@@ -355,7 +355,7 @@ jobs:
           echo "path=${sarif_path}" >> "${GITHUB_OUTPUT}"
 
       - name: Upload Grype SARIF report
-        uses: github/codeql-action/upload-sarif@7188fc363630916deb702c7fdcf4e481b751f97a # v3.29.5
+        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v3.29.5
         if: inputs.scan_image && inputs.push_sarif
         with:
           category: grype-${{ steps.setup.outputs.artifact_key }}
@@ -432,7 +432,7 @@ jobs:
           merge-multiple: true
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -495,7 +495,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest OCI image
-        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4.2.0
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
         with:
           github-token: ${{ github.token }}
           subject-name: ${{ needs.validate.outputs.image }}
@@ -547,7 +547,7 @@ jobs:
           } >> "${GITHUB_OUTPUT}"
 
       - name: Attest SBOM
-        uses: actions/attest@f7c74d28b9d84cb8768d0b8ca14a4bac6ef463e6 # v4.2.0
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
         if: inputs.push_image
         with:
           github-token: ${{ github.token }}
